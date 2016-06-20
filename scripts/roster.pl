@@ -50,9 +50,10 @@ use DateTime;
 use Scalar::Util qw(looks_like_number);
 
 for my $rec (@report) {
+    next unless length $rec->{4};
     print color('bold blue');
-    print color('bold red') if (length $rec->{4} && $rec->{4} =~ m/07:00/);
-    print substr $rec->{1},0,2 if ( length $rec->{1} );
+    print color('bold red') if ($rec->{4} =~ m/07:00/);
+    print substr $rec->{1},0,2;
     print color('reset');
     print ',';
 }
