@@ -33,7 +33,7 @@ foreach my $line (@a) {
         $line =~ s/<td>//g; 
         $line =~ s/<\/td>//g;
         $line = dayWeek($line, \@record, \@quick, \@light) if ($element_cnt == 1); 
-print $line ."\n";
+#print $line ."\n";
         $elements->{$element_cnt} = $line;
     }   
     if ( $line =~ m/<\/tr>/ ) {
@@ -49,10 +49,19 @@ use Data::Dumper;
 use DateTime;
 use Scalar::Util qw(looks_like_number);
 
-print Dumper @report;
-print color('bold blue');
-print Dumper join ',',@light;
-print color('reset');
+for my $rec (@report) {
+    print color('bold blue');
+    print color('bold red') if (length $rec->{4} && $rec->{4} =~ m/07:00/);
+    print substr $rec->{1},0,2 if ( length $rec->{1} );
+    print color('reset');
+    print ',';
+}
+print "\n";
+#print Dumper @report;
+
+#print color('bold blue');
+#print Dumper join ',',@light;
+#print color('reset');
 #email(@report);
 email(@light);
 #email(join ',',@quick);
